@@ -28,10 +28,22 @@ namespace dotnet_rpg.Controllers
         }
 
         [HttpPost]
-        public async Task<ServiceResponse<List<GetCharacterDto>>> CreateCharacter(CreateCharacterDto newCharacter)
+        public async Task<ServiceResponse<List<GetCharacterDto>>> Create(CreateCharacterDto newCharacter)
         {
             await _characterService.CreateCharacter(newCharacter);
             return await getAllCharacters();
+        }
+
+        [HttpPut]
+        public async Task<ServiceResponse<GetCharacterDto>> Update(UpdateCharacterDto updatedCharacter)
+        {
+            return await _characterService.UpdateCharacter(updatedCharacter);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ServiceResponse<List<GetCharacterDto>>> Delete(int id)
+        {
+            return await _characterService.DeleteCharacter(id);
         }
 
         private async Task<ServiceResponse<List<GetCharacterDto>>> getAllCharacters()
