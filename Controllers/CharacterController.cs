@@ -1,3 +1,4 @@
+using dotnet_rpg.Dtos.Character;
 using dotnet_rpg.Services.CharacterService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,25 +16,25 @@ namespace dotnet_rpg.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<Character>>> GetAll()
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAll()
         {
-            return Ok(await getAllCharacters());
+            return await getAllCharacters();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> Get(int id)
+        public async Task<ServiceResponse<GetCharacterDto>> Get(int id)
         {
-            return Ok(await _characterService.GetCharacterById(id));
+            return await _characterService.GetCharacterById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Character>>> CreateCharacter(Character newCharacter)
+        public async Task<ServiceResponse<List<GetCharacterDto>>> CreateCharacter(CreateCharacterDto newCharacter)
         {
             await _characterService.CreateCharacter(newCharacter);
-            return Ok(getAllCharacters());
+            return await getAllCharacters();
         }
 
-        private async Task<List<Character>> getAllCharacters()
+        private async Task<ServiceResponse<List<GetCharacterDto>>> getAllCharacters()
         {
            return await _characterService.GetAllCharacters();
         }
